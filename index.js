@@ -1,16 +1,11 @@
 require("dotenv").config();
 const express = require("express");
-const db = require("./connection");
+const db = require("./db/connection");
 const app = express();
+const seed = require("./db/seed");
 
 app.listen(process.env.PORT, () => {
   console.log("Server running on port " + process.env.PORT);
-
-  db.connect(err => {
-    if (err) {
-      return console.error("DB FAIL:" + err.message);
-    } else {
-      console.log("DB OK");
-    }
-  });
+  seed();
 });
+
