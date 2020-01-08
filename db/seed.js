@@ -14,8 +14,17 @@ const createTables = () => {
   const users = `create table if not exists users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   login VARCHAR(64),
-  password VARCHAR(255))`;
+  passhash VARCHAR(255),
+  salt VARCHAR(255),
+  unique (login))`;
   tables.push(users);
+
+  const tokens = `create table if not exists tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  token VARCHAR(512),
+  FOREIGN KEY(user_id) REFERENCES users(id))`;
+  tables.push(tokens);
 
   const completegames = `create table if not exists complete_games (
   id INT AUTO_INCREMENT PRIMARY KEY, 
